@@ -1,0 +1,13 @@
+asyncssh
+brython
+dnspython
+httpserver
+libratom
+paramiko
+psutil
+pycryptodomex
+pyinstaller
+requests
+scapy
+urllib
+wmi
