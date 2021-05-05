@@ -9,5 +9,4 @@ pycryptodomex
 pyinstaller
 requests
 scapy
-urllib
 wmi
