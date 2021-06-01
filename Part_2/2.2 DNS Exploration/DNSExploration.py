@@ -3,8 +3,11 @@ import dns.resolver
 import socket
 
 def ReverseDNS(ip):
-    result = socket.gethostbyaddr(ip)
-    return [result[0]]+result[1]
+    try:
+        result = socket.gethostbyaddr(ip)
+        return [result[0]]+result[1]
+    except socket.herror:
+        return None, None
 
 def DNSRequest(domain):
     ips = []
@@ -14,7 +17,7 @@ def DNSRequest(domain):
             print(domain)
             for answer in result:
                 print(answer)
-                print("Domain Names: %s" % ReverseDNS(answer.to_text()))
+                print("Domain Names: %s" % str(ReverseDNS(str(answer))))
     except (dns.resolver.NXDOMAIN, dns.exception.Timeout):
         return []
     return ips
